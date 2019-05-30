@@ -6,8 +6,9 @@ function App(dropZoneID,downloadID,testButtonID){
 	this.newShopifyData;
 	this.templateHeadingLength = 19;
 	this.commaSplitData;
-	this.captureCSV = new CaptureCSV();
 
+	this.captureCSV = new CaptureCSV();
+	this.testCSV;
 	this.initApp();
 }
 
@@ -68,6 +69,7 @@ App.prototype.fileDropped = function(event){
 	.then(commaSplitData => {
 		console.log(commaSplitData);
 		this.commaSplitData = commaSplitData;
+		this.testCSV = new TestCSV(variantMap,commaSplitData);
 	})
 
 	.catch(err => {

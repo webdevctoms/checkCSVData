@@ -33,9 +33,7 @@ App.prototype.initApp = function() {
 App.prototype.runTests = function(){
 	console.log("run tests");
 	try{
-		Tests.checkLength(this.commaSplitData,this.commaSplitData[0].length);
-		Tests.checkLength(this.newShopifyData,this.newShopifyData[0].length);
-		Tests.checkTags(this.newShopifyData);
+		this.testCSV.testOptions();
 	}
 	catch(err){
 		console.log("error testing ",err);

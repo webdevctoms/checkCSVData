@@ -4,6 +4,21 @@ function TestCSV(variantMap,csvData){
 	this.csvData = csvData;
 }
 
+TestCSV.prototype.fixXLarge = function(arr){
+	let fixedArr = [];
+	fixedArr.push(arr[0]);
+	for(let i = 1;i < arr.length;i++){
+		let row = arr[i];
+		if(row[15] === "X-Large,"){
+			console.log("found one");
+			row[15] = "Extra Large";
+		}
+		fixedArr.push(row);
+	}
+
+	return fixedArr;
+}
+
 TestCSV.prototype.findOptionColumn = function(option){
 	let column;
 	let columnValue;
@@ -48,16 +63,31 @@ TestCSV.prototype.captureOptions = function(itemCode) {
 	
 	return options;
 };
-
+//error because some XL = extra large other will = X-large
 TestCSV.prototype.testOptions = function() {
 	for(let i = 1;i < this.csvData.length;i++){
 		let options = this.captureOptions(this.csvData[i][0]);
-		console.log(this.csvData[i][0],options);
+		//console.log(this.csvData[i][0],options);
 		if(options){
 			for(let k = 0;k < options.length;k++){
-				let columnData = this.findOptionColumn(options[k]);
-				console.log("column data: ",columnData);
+				let columnData
+				if(k === 3 && options[k] === "XL,"){
+					columnData = this.findOptionColumn("XLL");
+				}
+				else if(k === 3 && options[k] === "S,"){
+					columnData = this.findOptionColumn("SH");
+				}
+				else{
+					columnData = this.findOptionColumn(options[k]);
+				}
+				
+				//console.log("column data: ",columnData);
+				if(columnData.column && this.csvData[i][columnData.column] !== (columnData.columnValue + ",")){
+					this.incorrectOptions.push(this.csvData[i]);
+				}
 			}
 		}
 	}
+
+	console.log(this.incorrectOptions);
 };

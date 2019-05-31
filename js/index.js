@@ -42,7 +42,6 @@ App.prototype.fixData = function(){
 		let xlFixedData = this.testCSV.fixXLarge(this.commaSplitData);
 		console.log(xlFixedData);
 		let csvData = this.createBlob(xlFixedData);
-		console.log(csvData);
 		this.createDownload(csvData,this.downloadLink);
 	}
 	catch(err){
@@ -53,7 +52,9 @@ App.prototype.fixData = function(){
 App.prototype.runTests = function(){
 	console.log("run tests");
 	try{
-		this.testCSV.testOptions();
+		let newData = this.testCSV.testOptions();
+		let csvData = this.createBlob(newData);
+		this.createDownload(csvData,this.downloadLink);
 
 	}
 	catch(err){

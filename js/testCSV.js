@@ -66,11 +66,12 @@ TestCSV.prototype.captureOptions = function(itemCode) {
 //error because some XL = extra large other will = X-large
 TestCSV.prototype.testOptions = function() {
 	let newData = [];
+	newData.push(this.csvData[0]);
 	for(let i = 1;i < this.csvData.length;i++){
 		let options = this.captureOptions(this.csvData[i][0]);
 		
 		if(options){
-			console.log(this.csvData[i][0],options);
+			//console.log(this.csvData[i][0],options);
 			for(let k = 0;k < options.length;k++){
 				let columnData;
 				if(k === 3 && options[k] === "XL,"){
@@ -86,11 +87,14 @@ TestCSV.prototype.testOptions = function() {
 				//console.log("column data: ",columnData);
 				if(columnData.column && this.csvData[i][columnData.column] !== (columnData.columnValue + ",")){
 					//copy over data to empty correct location
+
 					if(this.csvData[i][columnData.column] === ","){
+						console.log("column data: ",this.csvData[i][0],columnData,options[k]);
 						this.csvData[i][columnData.column] = columnData.columnValue + ",";
 					}
+					//data that has incorrect data in column
 					else{
-						console.log("column data: ",this.csvData[i][0],columnData,options[k]);
+						
 						this.incorrectOptions.push(this.csvData[i]);
 					}
 					

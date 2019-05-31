@@ -1,7 +1,8 @@
-function App(dropZoneID,downloadID,testButtonID){
+function App(dropZoneID,downloadID,testButtonID,fixDataId){
 	this.csvDropZone = document.getElementById(dropZoneID);
 	this.testButton = document.getElementById(testButtonID);
 	this.downloadLink = document.getElementById(downloadID);
+	this.fixDataButton = document.getElementById(fixDataId);
 
 	this.newShopifyData;
 	this.templateHeadingLength = 19;
@@ -28,12 +29,32 @@ App.prototype.initApp = function() {
 		this.runTests();
 	}.bind(this),false);
 
+	this.fixDataButton.addEventListener("click",function(e){
+		e.preventDefault();
+		this.fixData();
+	}.bind(this),false);
+
+};
+
+App.prototype.fixData = function(){
+	console.log("run tests");
+	try{
+		let xlFixedData = this.testCSV.fixXLarge(this.commaSplitData);
+		console.log(xlFixedData);
+		let csvData = this.createBlob(xlFixedData);
+		console.log(csvData);
+		this.createDownload(csvData,this.downloadLink);
+	}
+	catch(err){
+		console.log("error testing ",err);
+	}
 };
 
 App.prototype.runTests = function(){
 	console.log("run tests");
 	try{
 		this.testCSV.testOptions();
+
 	}
 	catch(err){
 		console.log("error testing ",err);
@@ -75,4 +96,4 @@ App.prototype.fileDropped = function(event){
 	});
 };
 
-let app = new App("drop_zone","downloadLink","testData");
+let app = new App("drop_zone","downloadLink","testData","fixData");

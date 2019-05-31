@@ -30,7 +30,7 @@ const variantMap = {
 		"CB.FG":"Coyote Brown/Foliage Green",
 		"FG.CB":"Foliage Green/Coyote Brown",
 		CL:"Clear",
-		MIL:"Military, OD"
+		MIL:'"Military, OD"'
 	},
 	size:{
 		index:15,
@@ -73,7 +73,8 @@ const variantMap = {
 		"6.46":"x 46 m",
 		"6.60": "x 60 m",
 		"6.76":"x 76 m",
-		"6.110":"x 110 m"
+		"6.110":"x 110 m",
+		"2":"2"
 	},
 	"Waist Size":{
 		index:14,

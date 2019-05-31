@@ -1,5 +1,6 @@
 const variantMap = {
 	color:{
+		index:5,
 		BK:"Black",
 		BM:"Black Matte",
 		MC:"Multicam",
@@ -32,6 +33,7 @@ const variantMap = {
 		MIL:"Military OD"
 	},
 	size:{
+		index:15,
 		XS:"X-Small",
 		SM: "Small",
 		MD:"Medium",
@@ -73,6 +75,7 @@ const variantMap = {
 		"6.110":"x 110 m"
 	},
 	"Waist Size":{
+		index:14,
 		"28":"28",
 		"30":"30",
 		"32":"32",
@@ -85,6 +88,7 @@ const variantMap = {
 		"46":"46"
 	},
 	Length:{
+		index:16,
 		S:"Short",
 		R:"Regular",
 		L:"Long",

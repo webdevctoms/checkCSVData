@@ -4,10 +4,26 @@ function TestCSV(variantMap,csvData){
 	this.csvData = csvData;
 }
 
+TestCSV.prototype.findOptionColumn = function(option){
+	let column;
+	let columnValue;
+	let optionKey = String(option).replace(",","");
+
+	for(let key in this.variantMap){
+		if(this.variantMap[key][optionKey]){
+			column = this.variantMap[key].index;
+			columnValue = this.variantMap[key][optionKey];
+			break;
+		}
+	}
+
+	return {column,columnValue};
+};
+
 TestCSV.prototype.findOptions = function(itemCodeArr,startIndex){
-	let options = {};
+	let options = [];
 	for(let i = startIndex;i < itemCodeArr.length;i++){
-		options[itemCodeArr[i]] = itemCodeArr[i];
+		options.push(itemCodeArr[i]);
 	}
 
 	return options;
@@ -16,13 +32,13 @@ TestCSV.prototype.findOptions = function(itemCodeArr,startIndex){
 TestCSV.prototype.captureOptions = function(itemCode) {
 	let splitItemCode = itemCode.split("-");
 	let itemCodeRegex = /\d{5}/g
-	let options = {};
+	let options = [];
 
 	if(splitItemCode.length <= 1){
 		return;
 	}
+	//mostly catch discountinued case
 	else if(itemCodeRegex.test(splitItemCode[1])){
-		//console.log("found index 1 item code: ",splitItemCode);
 		options = this.findOptions(splitItemCode,1);
 	}
 	//normal case
@@ -38,8 +54,9 @@ TestCSV.prototype.testOptions = function() {
 		let options = this.captureOptions(this.csvData[i][0]);
 		console.log(this.csvData[i][0],options);
 		if(options){
-			for(let k = 0;k < this.csvData[i].length;k++){
-			
+			for(let k = 0;k < options.length;k++){
+				let columnData = this.findOptionColumn(options[k]);
+				console.log("column data: ",columnData);
 			}
 		}
 	}
